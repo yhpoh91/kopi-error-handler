@@ -7,6 +7,33 @@ test('should return error instance', () => {
   expect(httpError instanceof Error).toBe(true);
 });
 
+test('should return error message', () => {
+  const httpError = httpErrorCreator.create({ message: 'some message' });
+
+  expect(httpError.message).toBe('some message');
+});
+
+test('should return name the same value as status', () => {
+  const httpError = httpErrorCreator.create({ code: 403 });
+
+  expect(httpError.name).toBe('Forbidden');
+});
+
+test('should have stack in root error', () => {
+  const httpError = httpErrorCreator.create({ data: new Error() });
+
+  expect(httpError.stack).not.toBeUndefined();
+});
+
+test('should have stack in root error when stacktrace false', () => {
+  const httpError = httpErrorCreator.create({
+    data: new Error(),
+    stackTrace: false,
+});
+
+  expect(httpError.stack).not.toBeUndefined();
+});
+
 test('should have isKopiHttpError field', () => {
   const httpError = httpErrorCreator.create({});
 

@@ -7,13 +7,14 @@ const create = ({
   data, 
   stackTrace = false,
 }) => {
-  const httpError = new Error();
+  const httpError = new Error(message);
   httpError.isKopiHttpError = true;
 
   const sanitizedCode = 500;
 
   httpError.code = code || sanitizedCode;
   httpError.status = status || httpStatusCodes.getReasonPhrase(httpError.code);
+  httpError.name = httpError.status;
 
   httpError.data = {
     error: data || {
@@ -28,6 +29,7 @@ const create = ({
   }
 
   if (data instanceof Error) {
+    httpError.stack = data.stack;
     if (!stackTrace) {
       delete httpError.data.error.stack;
     }

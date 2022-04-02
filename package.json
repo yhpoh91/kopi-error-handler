@@ -1,11 +1,25 @@
 {
   "name": "kopi-error-handler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "files": [
     "/dist",
     "/README.md"
+  ],
+  "keywords": [
+    "kopitech",
+    "kopi",
+    "express",
+    "error",
+    "handling",
+    "errorHandling",
+    "error_handing",
+    "error-handling",
+    "handler",
+    "errorHandler",
+    "error_handler",
+    "error-handler"
   ],
   "scripts": {
     "build": "rm -rf dist && mkdir dist && babel src -D -d dist",
