@@ -70,3 +70,51 @@ test('error handler should use correct data for kopi http error', async () => {
   expect(response.data.error.message).toBe('Unauthorized');
   expect(response.data.error.item).toBe('value');
 });
+
+
+test('error handler should handle axios response error', async () => {
+  const { req, res, next, response } = createMockRequest();
+  const error = new Error();
+  error.response = {
+    status: 401,
+    data: {
+      item: 'value',
+    },
+  };
+
+  await errorHandler.handleError(error, req, res, next);
+
+  expect(response.data.error.message).toBe('Unauthorized');
+  expect(response.data.error.item).toBe('value');
+});
+
+
+
+
+test('error handler should handle joi validation error', async () => {
+  const { req, res, next, response } = createMockRequest();
+
+  // Joi Validation Error Sample
+  const error = new Error();
+  error.name = 'ValidationError';
+  error.message = 'validation error';
+  error.errors = [
+    {
+      "field": ["password"],
+      "location": "body",
+      "messages": ["\"password\" is required"],
+      "types": ["any.required"]
+    }
+  ];
+  error.status = 400;
+  error.statusText = "Bad Request";
+
+  await errorHandler.handleError(error, req, res, next);
+
+  expect(response.status).toBe(400);
+  expect(response.data.error.name).toBe('ValidationError');
+  expect(response.data.error.message).toBe('validation error');
+  expect(response.data.error.errors.length).toBe(1);
+});
+
+

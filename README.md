@@ -41,3 +41,8 @@ throw error;
 `stackTrace`: (boolean, optional, default: `false`) Flag to include stacktrace.
 
 
+### Environment Variables
+
+`ERROR_HANDLER_LOG_NOT_FOUND_ROUTE`: (boolean, optional, default: `false`) Logs not found route
+
+`ERROR_HANDLER_LOG_ERROR`: (boolean, optional, default: `false`) Logs errors before responding
