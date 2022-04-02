@@ -10,8 +10,8 @@ Using `npm`:
 const KopiErrorHandler = require('kopi-error-handler');
 
 const app = express();
-app.use(KopiErrorHandler.handleNotFound);
-app.use(KopiErrorHandler.handleError);
+app.use((req, res, next) => KopiErrorHandler.handleNotFound(req, res, next));
+app.use((error, req, res, next) => KopiErrorHandler.handleError(error, req, res, next));
 ```
 
 ## Usage (create a custom error)
