@@ -185,3 +185,23 @@ test('config with stacktrace enabled should not have stack trace when not availa
   expect(httpError.data.error).not.toBeUndefined();
   expect(httpError.data.error.stack).toBeUndefined();
 });
+
+
+test('config should convert error into object with proper message', () => {
+  try {
+    const a = 1 + somethingNotExist;
+  } catch (error) {
+
+    const httpError = httpErrorCreator.create({
+      data: error,
+      stackTrace: true,
+    });
+
+    const newData = JSON.parse(JSON.stringify(httpError.data));
+
+    expect(newData.error).not.toBeUndefined();
+    expect(newData.error.name).toBe('ReferenceError');
+    expect(newData.error.message).toBe('somethingNotExist is not defined');
+    expect(newData.error.stack).not.toBeUndefined();
+  }
+});

@@ -1,4 +1,5 @@
 require('regenerator-runtime/runtime');
+
 const httpErrorCreator = require('../src/httpErrorCreator');
 const errorHandler = require('../src/handler');
 

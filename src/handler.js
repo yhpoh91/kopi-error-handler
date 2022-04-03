@@ -62,7 +62,7 @@ const handleError = async (error, req, res, next) => {
 
     if (logError) {
       L.error(`Error in error handling, wrapping in generic error`);
-      L.error(JSON.parse(JSON.stringify(sanitizedError)));
+      L.error(JSON.parse(JSON.stringify(genericError)));
     }
     res.status(genericError.code).json(genericError.data);
   }

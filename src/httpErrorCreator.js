@@ -29,6 +29,18 @@ const create = ({
   }
 
   if (data instanceof Error) {
+    httpError.data.error = {
+      name: data.name,
+      message: data.message,
+      stack: data.stack,
+    };
+
+    const keys = Object.keys(data);
+    for (let i = 0; i < keys.length; i += 1) {
+      const key = keys[i];
+      httpError.data.error[key] = data[key];
+    }
+
     httpError.stack = data.stack;
     if (!stackTrace) {
       delete httpError.data.error.stack;
